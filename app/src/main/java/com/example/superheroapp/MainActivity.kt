@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.superheroapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var retrofit: Retrofit
+
+    private lateinit var adapter: SuperheroAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -33,13 +37,27 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?) = false
         })
+
+        adapter = SuperheroAdapter()
+        binding.rvSuperhero.setHasFixedSize(true)
+        binding.rvSuperhero.layoutManager = LinearLayoutManager(this)
+        binding.rvSuperhero.adapter = adapter
     }
 
     private fun searchByName(query: String) {
+        binding.progressBar.isVisible = true
         CoroutineScope(Dispatchers.IO).launch { // Lanza una corrutina. Dispatchers.IO indica que lo lance en un hilo secundario
             val myResponse: Response<SuperHeroDataResponse> = retrofit.create(ApiService::class.java).getSuperheroes(query)
             if(myResponse.isSuccessful){
                 Log.i("josé","Funciona :)")
+                val response: SuperHeroDataResponse? = myResponse.body()
+                if(response != null){
+                    Log.i("josé",response.toString())
+                    runOnUiThread {     // Correr en el 'hilo principal' lo que esté entre las llaves. Solo el 'hilo principal' puede crear vistas
+                        adapter.updateList(response.superheroes)
+                        binding.progressBar.isVisible = false
+                    }
+                }
             } else{
                 Log.i("josé","No funciona :(")
             }
