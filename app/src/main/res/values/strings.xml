@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SuperHero App</string>
+
+    <string name="superhero_satat_intelligence">Intelligence</string>
+    <string name="superhero_satat_strength">Strength</string>
+    <string name="superhero_satat_speed">Speed</string>
+    <string name="superhero_satat_durability">Durability</string>
+    <string name="superhero_satat_power">Power</string>
+    <string name="superhero_satat_combat">Combat</string>
 </resources>
