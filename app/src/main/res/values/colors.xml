@@ -4,4 +4,12 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="superhero_item_name">#8C673AB7</color>
+
+    <color name="superhero_satat_intelligence">#FF5833</color>
+    <color name="superhero_satat_strength">#F6E48E</color>
+    <color name="superhero_satat_speed">#1ABC9C</color>
+    <color name="superhero_satat_durability">#8D43AD</color>
+    <color name="superhero_satat_power">#606EC4</color>
+    <color name="superhero_satat_combat">#3398DB</color>
+
 </resources>
