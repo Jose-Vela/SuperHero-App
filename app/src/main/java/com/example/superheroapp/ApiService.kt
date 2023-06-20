@@ -13,4 +13,7 @@ interface ApiService {
     // Indicamos que utilizaremos llamadas de tipo GET
     @GET("api/7206709729358765/search/{name}")  //api/access-token/search/nombre-del-superheroe
     suspend fun getSuperheroes(@Path("name") superheroName: String): Response<SuperHeroDataResponse> // Cuando usamos una función con Corrutinas, estas comienzan con la palabra 'suspend'
+
+    @GET("api/7206709729358765/{id}")
+    suspend fun getSuperheroDetail(@Path("id") superheroId: String): Response<SuperHeroDetailResponse>
 }
